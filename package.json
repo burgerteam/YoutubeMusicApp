@@ -2,8 +2,9 @@
   "name": "youtube-music",
   "version": "1.0.0",
   "description": "Electron application for Youtube Music desckop",
-  "main": "main.js",
+  "main": "app/main.js",
   "scripts": {
+    "start": "electron .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
