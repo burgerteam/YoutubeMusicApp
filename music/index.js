@@ -1,7 +1,8 @@
 
 const playbarBtn = $.qs('#play-pause-button');
+const SECOND = 1000;
 
-function playCheck() {
+function isPlaying() {
   if (playbarBtn.getAttribute('title') == '일시중지') {
     console.log('플레이중 ~');
   } else {
@@ -9,4 +10,4 @@ function playCheck() {
   }
 }
 
-window.setInterval(playCheck, 1000 * 1);
+window.setInterval(isPlaying, SECOND);
