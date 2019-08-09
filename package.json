@@ -2,9 +2,10 @@
   "name": "youtube-music",
   "version": "1.0.0",
   "description": "Electron application for Youtube Music desckop",
-  "main": "app/main.js",
+  "main": "main.js",
   "scripts": {
     "start": "electron .",
+    "start:dev": "electron . --debug",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,5 +23,8 @@
   "homepage": "https://github.com/skyhills13/YoutubeMusicApp#readme",
   "dependencies": {
     "electron": "^6.0.1"
+  },
+  "devDependencies": {
+    "devtron": "^1.4.0"
   }
 }
