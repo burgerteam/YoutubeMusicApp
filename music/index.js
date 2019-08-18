@@ -1,6 +1,14 @@
 
+const path = require('path');
+
+// TODO other method
+const rootPath = path.join(__dirname, '../', '../', '../', '../', '../', '../', '../', '../');
+const musicPath = path.join(rootPath, 'music');
+
+const { createTray } = require(path.join(musicPath, 'tray'));
+
 const playbarBtn = $.qs('#play-pause-button');
-const SECOND = 1000;
+const INTERVAL_TIME = 300;
 
 function isPlaying() {
   if (playbarBtn.getAttribute('title') == '일시중지') {
@@ -10,4 +18,6 @@ function isPlaying() {
   }
 }
 
-window.setInterval(isPlaying, SECOND);
+createTray(rootPath);
+
+window.setInterval(isPlaying, INTERVAL_TIME);
