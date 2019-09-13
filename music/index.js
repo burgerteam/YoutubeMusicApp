@@ -1,6 +1,5 @@
 
 const path = require('path');
-const {desktopCapturer} = require("electron");
 // TODO other method
 const rootPath = path.join(__dirname, '../', '../', '../', '../', '../', '../', '../', '../');
 const musicPath = path.join(rootPath, 'music');
