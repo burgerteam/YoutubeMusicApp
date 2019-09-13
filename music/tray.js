@@ -1,13 +1,24 @@
 // -- Tray
 const path = require('path');
 const { remote } = require('electron');
-const { Tray, Menu } = remote;
+const { Tray, Menu, systemPreferences } = remote;
 
-function createTray(rootPath) {
-  const asssetPath = path.join(rootPath, 'assets');
-  const iconImgPath = path.join(asssetPath, 'icon.jpg');
+const assetPath = path.join(rootPath, 'assets/tray');
 
-  let trayIcon = new Tray(iconImgPath);
+const getIcon = (iconName) => {
+  if (process.platform === 'win32') {
+    return path.join(assetPath, `${iconName}.ico`);
+  } else {
+    if(systemPreferences.isDarkMode()) {
+      return path.join(assetPath, `${iconName}-white.png`);
+    }
+    return path.join(assetPath, `${iconName}.png`);
+  }
+};
+
+function initTray(rootPath) {
+  const iconImgPath = getIcon("default");
+  let tray = new Tray(iconImgPath);
 
   const trayMenuTemplate = [
     {
@@ -30,9 +41,9 @@ function createTray(rootPath) {
   ];
 
   let trayMenu = Menu.buildFromTemplate(trayMenuTemplate);
-  trayIcon.setContextMenu(trayMenu);
+  tray.setContextMenu(trayMenu);
 }
 
 module.exports = {
-  createTray,
+  initTray,
 };

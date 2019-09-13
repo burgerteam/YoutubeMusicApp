@@ -5,7 +5,7 @@ const path = require('path');
 const rootPath = path.join(__dirname, '../', '../', '../', '../', '../', '../', '../', '../');
 const musicPath = path.join(rootPath, 'music');
 
-const { createTray } = require(path.join(musicPath, 'tray'));
+const { initTray } = require(path.join(musicPath, 'tray'));
 
 const playbarBtn = $.qs('#play-pause-button');
 const INTERVAL_TIME = 300;
@@ -18,6 +18,6 @@ function isPlaying() {
   }
 }
 
-createTray(rootPath);
+initTray(rootPath);
 
 window.setInterval(isPlaying, INTERVAL_TIME);
