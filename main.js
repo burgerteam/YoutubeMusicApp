@@ -1,8 +1,9 @@
 
 const fs = require('fs');
 const util = require('util');
-const path = require('path'); 
+const path = require('path');
 const { app, BrowserWindow } = require("electron");
+const { menubar } = require('menubar');
 
 const debug = /--debug/.test(process.argv[2]);
 const readFileP = util.promisify(fs.readFile);
@@ -16,6 +17,24 @@ const MUSIC_URL = "https://music.youtube.com";
 
 // -- variable
 let window = null;
+let simplifiedWindow = null;
+let mb = null;
+
+const createSimplifiedWindow = () => {
+  simplifiedWindow = new BrowserWindow({
+    show: false,
+    webPreferences: {
+      nodeIntegration: true
+    },
+    width: 400,
+    height: 100
+  });
+  // simplifiedWindow.loadURL(MUSIC_URL);
+  // simplifiedWindow.once("ready-to-show", () => {
+  //   simplifiedWindow.show();
+  // });
+  return simplifiedWindow;
+};
 
 const createWindow = async () => {
   const musics = await Promise.all([
@@ -43,7 +62,7 @@ const createWindow = async () => {
 
     // -- insert javascript
     const add = (a, b) => a + b;
-    window.webContents.executeJavaScript(musics.reduce(add, ''));
+    //window.webContents.executeJavaScript(musics.reduce(add, ''));
   });
 
 
@@ -52,9 +71,33 @@ const createWindow = async () => {
   });
 };
 
+
 function initialize() {
   app.on("ready", function () {
     createWindow();
+
+    //const mb = menubar();
+    mb = menubar({
+      // browserWindow : new BrowserWindow({
+      //   show: false,
+      //   webPreferences: {
+      //     nodeIntegration: true
+      //   },
+      //   width: 400,
+      //   height: 100
+      // }),
+    });
+    mb.on("ready", () => {
+      mb.window = createSimplifiedWindow();
+      mb.window.loadURL(MUSIC_URL);
+      mb.window.show();
+    });
+    mb.on("after-create-window", () => {
+      console.log("$$$$$$$########################## after-creat-window");
+      // mb.window.once("ready-to-show", () => {
+      //   mb.window.show();
+      //   });
+    });
   });
 
   app.on('window-all-closed', () => {

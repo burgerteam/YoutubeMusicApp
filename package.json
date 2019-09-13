@@ -22,7 +22,8 @@
   },
   "homepage": "https://github.com/skyhills13/YoutubeMusicApp#readme",
   "dependencies": {
-    "electron": "^6.0.1"
+    "electron": "^6.0.1",
+    "menubar": "6.0.7"
   },
   "devDependencies": {
     "devtron": "^1.4.0"
