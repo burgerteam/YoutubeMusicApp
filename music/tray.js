@@ -1,13 +1,31 @@
 // -- Tray
 const path = require('path');
 const { remote } = require('electron');
-const { Tray, Menu } = remote;
+const { Tray, Menu, systemPreferences } = remote;
 
-function createTray(rootPath) {
-  const asssetPath = path.join(rootPath, 'assets');
-  const iconImgPath = path.join(asssetPath, 'icon.jpg');
+const assetPath = path.join(rootPath, 'assets/tray');
+let tray;
 
-  let trayIcon = new Tray(iconImgPath);
+//TODO param as ENUM
+// play or pause or default
+const getIcon = (iconName) => {
+  if (process.platform === 'win32') {
+    return path.join(assetPath, `${iconName}.ico`);
+  } else {
+    if(systemPreferences.isDarkMode()) {
+      return path.join(assetPath, `${iconName}-white.png`);
+    }
+    return path.join(assetPath, `${iconName}.png`);
+  }
+};
+
+const changeIcon = (iconName) => {
+  tray.setImage(getIcon(iconName));
+};
+
+function initTray(rootPath) {
+  const iconImgPath = getIcon("default");
+  tray = new Tray(iconImgPath);
 
   const trayMenuTemplate = [
     {
@@ -30,9 +48,11 @@ function createTray(rootPath) {
   ];
 
   let trayMenu = Menu.buildFromTemplate(trayMenuTemplate);
-  trayIcon.setContextMenu(trayMenu);
+  tray.setToolTip("Youtube Music App");
+  tray.setContextMenu(trayMenu);
+  return tray;
 }
 
 module.exports = {
-  createTray,
+  initTray, changeIcon
 };
