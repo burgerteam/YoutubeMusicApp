@@ -70,9 +70,9 @@ function getPlayList() {
   }
 
   const nowPlayTitle = gt(document, '.title.style-scope.ytmusic-player-bar.complex-string');
-
   const playListEls = [...$.qsa('ytmusic-player-queue-item')];
-  const playList = playListEls.map(dom => {
+
+  let playList = playListEls.map((dom) => {
     const title = gt(dom, '.song-title');
     const duration = gt(dom, '.duration');
     const musician = gt(dom, '.byline');
@@ -95,6 +95,8 @@ function getPlayList() {
   if (nowPlayIndex === -1) {
     return playList.slice(0, 5);
   }
+
+  playList = playList.map((play, idx) => (play.enabled = (idx !== nowPlayIndex), play));
 
   const startIndex = Math.max(0, nowPlayIndex - 2);
   const endIndex = Math.min(playList.length, nowPlayIndex + 3);
