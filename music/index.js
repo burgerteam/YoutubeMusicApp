@@ -6,16 +6,11 @@ const musicPath = path.join(rootPath, 'music');
 
 const { initTray, changeIcon } = require(path.join(musicPath, 'tray'));
 
-const playbarBtn = $.qs('#play-pause-button');
-let prevProgressBarValue = 0;
-
-const INTERVAL_TIME = 1100;
+const INTERVAL_TIME = 300;
 
 function isPlaying() {
-  //TODO possible get around : https://developer.chrome.com/extensions/tabs
-  const progressBarValue = $.qs("#progress-bar").value;
-  if (prevProgressBarValue != progressBarValue) {
-    prevProgressBarValue = progressBarValue;
+  const isPlaying = !$.qs("video").paused;
+  if (isPlaying) {
     changeIcon("pause");
     console.log('플레이중 ~');
   } else {
