@@ -7,34 +7,34 @@ const assetPath = path.join(rootPath, 'assets', 'tray');
 
 const trayBtns = {
   prev: {
-    icon: 'default',
+    icon: 'prev',
     onClick: function (evt) {
       evt.preventDefault();
       $.qs('.previous-button').click();
     }
   },
   next: {
-    icon: 'default',
+    icon: 'next',
     onClick: function (evt) {
       evt.preventDefault();
       $.qs('.next-button').click();
     }
   },
   play: {
-    icon: 'default',
+    icon: 'play',
     onClick: function (evt) {
       evt.preventDefault();
       $.qs('#play-pause-button').click();
     }
   },
   playlist: {
-    icon: 'default',
+    icon: 'list',
   }
-}
+};
 
 function changeTrayIcon(tray, iconName) {
   tray.setImage(getIcon(iconName));
-};
+}
 
 
 let trayListMenuTpl = [];
@@ -67,7 +67,7 @@ function getPlayList() {
       return el.getAttribute('title');
     }
     return null;
-  }
+  };
 
   const nowPlayTitle = gt(document, '.title.style-scope.ytmusic-player-bar.complex-string');
   const playListEls = [...$.qsa('ytmusic-player-queue-item')];
@@ -84,7 +84,7 @@ function getPlayList() {
       },
       enabled: true,
     }
-  })
+  });
 
   if (!nowPlayTitle) {
     return playList.slice(0, 5);
@@ -127,13 +127,13 @@ function getIcon(iconName) {
     return path.join(assetPath, `${iconName}-white.png`);
   }
   return path.join(assetPath, `${iconName}.png`);
-};
+}
 
 function createPlayCtrl(action) {
   const { icon, onClick } = trayBtns[action];
   const iconImgPath = getIcon(icon);
 
-  tray = new Tray(iconImgPath);
+  const tray = new Tray(iconImgPath);
   tray.on('click', onClick);
   return tray;
 }
@@ -141,7 +141,7 @@ function createPlayCtrl(action) {
 function createPlayListCtrl(action) {
   const { icon } = trayBtns[action];
   const iconImgPath = getIcon(icon);
-  tray = new Tray(iconImgPath);
+  const tray = new Tray(iconImgPath);
   setPlayList(tray);
   return tray;
 }
