@@ -49,7 +49,7 @@ function setPlayList(tray) {
     ]
   }
 
-  if (isEqualArray((a, b) => a.title === b.title, trayListMenuTpl, trayMenuTemplate)) {
+  if (isEqualArray((a, b) => (a.title === b.title && a.musician === b.musician), trayListMenuTpl, trayMenuTemplate)) {
     return tray;
   }
 
@@ -78,28 +78,38 @@ function getPlayList() {
     const musician = gt(dom, '.byline');
     return {
       title: title,
-      label: `${title} - ${musician}(${duration})`,
+      musician: musician,
+      label: `${title} - ${musician} (${duration})`,
       click: function () {
         dom.querySelector('#play-button').click();
       },
       enabled: true,
     }
-  })
+  });
 
+  const maxSize = Math.min(playList.length, 10);
   if (!nowPlayTitle) {
-    return playList.slice(0, 5);
+    return playList.slice(0, maxSize);
   }
 
-  const nowPlayIndex = playList.findIndex(playList => playList.title === nowPlayTitle);
+  const nowPlayIndex = playList.findIndex(playList => (playList.title === nowPlayTitle));
 
   if (nowPlayIndex === -1) {
-    return playList.slice(0, 5);
+    return playList.slice(0, maxSize);
   }
 
   playList = playList.map((play, idx) => (play.enabled = (idx !== nowPlayIndex), play));
 
-  const startIndex = Math.max(0, nowPlayIndex - 2);
-  const endIndex = Math.min(playList.length, nowPlayIndex + 3);
+  let startIndex = Math.max(0, nowPlayIndex - 5);
+  let endIndex = Math.min(playList.length, nowPlayIndex + 6);
+
+  // edge
+  if (startIndex == 0) {
+    endIndex = maxSize;
+  } else if (endIndex == playList.length) {
+    startIndex = playList.length - maxSize;
+  }
+
   return playList.slice(startIndex, endIndex);
 }
 
