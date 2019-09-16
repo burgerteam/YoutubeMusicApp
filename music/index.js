@@ -36,13 +36,6 @@ function refreshPlayList({ listTray }) {
 }
 
 initTray((info) => {
-  const { playTray, prevTray, nextTray } = info;
-
-  // -- callback init
-  changeTrayIcon(playTray, "pause");
-  changeTrayIcon(prevTray, "prev"); // temp icon
-  changeTrayIcon(nextTray, "next"); // temp icon
-
 
   // -- interval work about playing
   window.setInterval(() => isPlaying(info), INTERVAL_TIME);
