@@ -1,0 +1,23 @@
+productName: Youtube Music Desktop App
+asar: true
+
+nsis:
+  oneClick: false
+  allowToChangeInstallationDirectory: true
+
+mac:
+  category: public.app-category.music
+  icon: ./assets/application/icon.icns
+  darkModeSupport: true
+
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+        - ia32
+  icon: ./assets/application/icon.ico
+
+linux:
+  icon: ./assets/application/icon.png
+  category: AudioVideo

@@ -1,11 +1,13 @@
 {
   "name": "youtube-music",
   "version": "1.0.0",
-  "description": "Electron application for Youtube Music desckop",
+  "description": "Unofficial application for Youtube Music desktop",
   "main": "main.js",
   "scripts": {
     "start": "electron .",
     "start:dev": "electron . --debug",
+    "build": "npm run build-mac-linux",
+    "build-mac-linux": "electron-builder -ml --config electron-builder.yml",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,10 +23,9 @@
     "url": "https://github.com/skyhills13/YoutubeMusicApp/issues"
   },
   "homepage": "https://github.com/skyhills13/YoutubeMusicApp#readme",
-  "dependencies": {
-    "electron": "^6.0.1"
-  },
   "devDependencies": {
-    "devtron": "^1.4.0"
+    "electron": "^6.0.1",
+    "devtron": "^1.4.0",
+    "electron-builder": "^21.2.0"
   }
 }
