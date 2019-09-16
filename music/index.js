@@ -40,8 +40,8 @@ initTray((info) => {
 
   // -- callback init
   changeTrayIcon(playTray, "pause");
-  changeTrayIcon(prevTray, "pause"); // temp icon
-  changeTrayIcon(nextTray, "pause"); // temp icon
+  changeTrayIcon(prevTray, "prev"); // temp icon
+  changeTrayIcon(nextTray, "next"); // temp icon
 
 
   // -- interval work about playing
