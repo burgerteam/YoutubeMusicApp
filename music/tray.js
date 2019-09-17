@@ -3,6 +3,7 @@ const path = require('path');
 const { remote } = require('electron');
 const { Tray, Menu, systemPreferences } = remote;
 
+const rootPath = path.join(__dirname, '../');
 const assetPath = path.join(rootPath, 'assets', 'tray');
 
 const trayBtns = {

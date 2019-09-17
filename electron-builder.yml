@@ -1,6 +1,8 @@
 productName: Youtube Music Desktop App
 asar: true
 
+files: ["**/*", "assets/tray/list-white.png", "asset/tray/next-white.png"]
+
 nsis:
   oneClick: false
   allowToChangeInstallationDirectory: true
