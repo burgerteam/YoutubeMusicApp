@@ -1,8 +1,9 @@
 
+const { remote } = require('electron');
 const path = require('path');
 
 // TODO other method
-const rootPath = path.join(__dirname, '../', '../', '../', '../', '../', '../', '../', '../');
+const rootPath = remote.app.getAppPath();
 const musicPath = path.join(rootPath, 'music');
 
 const {

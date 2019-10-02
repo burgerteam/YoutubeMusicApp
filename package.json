@@ -6,8 +6,8 @@
   "scripts": {
     "start": "electron .",
     "start:dev": "electron . --debug",
-    "build": "npm run build-mac-linux",
-    "build-mac-linux": "electron-builder -ml --config electron-builder.yml",
+    "pack": "electron-builder --dir",
+    "build": "electron-builder",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -27,5 +27,23 @@
     "electron": "^6.0.1",
     "devtron": "^1.4.0",
     "electron-builder": "^21.2.0"
+  },
+  "build": {
+    "appId": "Youtube Music Desktop App",
+    "asar": true,
+    "mac": {
+      "category": "public.app-category.music",
+      "icon": "./assets/application/icon.icns",
+      "darkModeSupport": true
+    },
+    "linux": {
+      "category": "AudioVideo",
+      "target": "./assets/application/icon.png"
+    },
+    "win": {
+      "target": "nsis",
+      "icon": "./assets/application/icon.ico",
+      "publisherName": "Youtube Music Desktop App"
+    }
   }
 }
