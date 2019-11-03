@@ -1,14 +1,14 @@
 
-var {
+const {
   initTray,
   changeTrayIcon,
   setPlayList,
   $,
 } = window.readConfig();
 
-var isPlaying = null;
-var grabInterval = null;
-var trayInfo = null;
+let isPlaying = null;
+let grabInterval = null;
+let trayInfo = null;
 
 function intervalPlayCheck({ playTray }) {
   const videoEl = $.qs('.video-stream');
@@ -48,19 +48,29 @@ function grabTrigger() {
   // -- interval work about play list (TODO we should use event method not interval)
   this.refreshInteval = window.setInterval(() => intervalRefreshPlayList(trayInfo), 300);
 
-  window.onbeforeunload = function () {
+
+  window.onbeforeunload = function (evt) {
     clearInterval(this.playInterval);
     clearInterval(this.refreshInteval);
 
     // -- Destroy tray, before close
-    Object
-      .values(trayInfo)
-      .map(tray => tray.destroy());
+    function destroyTray(trayInfo) {
+      Object
+        .values(trayInfo)
+        .map(tray => tray.destroy());
 
+      const is = Object
+        .values(trayInfo)
+        .find(tray => !tray.isDestroyed);
 
+      if (is) return destroyTray(trayInfo);
+    }
+
+    destroyTray(trayInfo);
     isPlaying = null;
     trayInfo = null;
     grabInterval = null;
+    return;
   }
 }
 

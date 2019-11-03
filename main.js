@@ -51,9 +51,6 @@ const createWindow = async () => {
       window.maximize();
       require('devtron').install()
     }
-
-    // -- insert javascript
-    window.webContents.executeJavaScript(fileList);
   });
 
   window.on("closed", () => {
