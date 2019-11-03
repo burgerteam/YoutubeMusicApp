@@ -1,9 +1,10 @@
-// -- Tray
 const path = require('path');
 const { remote } = require('electron');
-const { Tray, Menu, systemPreferences } = remote;
+const $ = require('../modules/$');
 
+const rootPath = remote.app.getAppPath();
 const assetPath = path.join(rootPath, 'assets', 'tray');
+const { Tray, Menu, systemPreferences } = remote;
 
 const trayBtns = {
   prev: {
@@ -35,7 +36,6 @@ const trayBtns = {
 function changeTrayIcon(tray, iconName) {
   tray.setImage(getIcon(iconName));
 }
-
 
 let trayListMenuTpl = [];
 function setPlayList(tray) {
@@ -156,17 +156,25 @@ function createPlayListCtrl(action) {
   return tray;
 }
 
-function initTray(callback) {
+function initTray() {
   const nextTray = createPlayCtrl('next');
   const playTray = createPlayCtrl('play');
   const prevTray = createPlayCtrl('prev');
   const listTray = createPlayListCtrl('playlist');
 
-  callback({ prevTray, playTray, nextTray, listTray })
+  return ({
+    prevTray,
+    playTray,
+    nextTray,
+    listTray,
+  });
 }
 
-module.exports = {
-  initTray,
-  changeTrayIcon,
-  setPlayList,
-};
+window.readConfig = function () {
+  return {
+    initTray,
+    changeTrayIcon,
+    setPlayList,
+    $,
+  }
+}
