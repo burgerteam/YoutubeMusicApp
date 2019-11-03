@@ -1,7 +1,7 @@
 
 const fs = require('fs');
 const util = require('util');
-const path = require('path'); 
+const path = require('path');
 const { app, BrowserWindow } = require("electron");
 
 const debug = /--debug/.test(process.argv[2]);
@@ -9,22 +9,20 @@ const readFileP = util.promisify(fs.readFile);
 
 const musicPath = path.join(__dirname, 'music', 'index.js');
 const modulesPath = path.join(__dirname, 'modules', '$.js');
-
-
-// -- constants
 const MUSIC_URL = "https://music.youtube.com";
 
-// -- variable
 let window = null;
 
 const createWindow = async () => {
   const musics = await Promise.all([
     readFileP(modulesPath, 'utf8'),
     readFileP(musicPath, 'utf8'),
-  ]);
+  ]).catch(() => alert('Please restart youtube music app'));
 
   window = new BrowserWindow({
     show: false,
+    width: 1200,
+    height: 800,
     webPreferences: {
       nodeIntegration: true
     }
